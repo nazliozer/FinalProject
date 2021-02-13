@@ -15,6 +15,8 @@ namespace Business.Concrete
     {
         IProductDal _productDal;
 
+            
+
         public ProductManager(IProductDal productDal)
         {
             _productDal = productDal;
@@ -22,9 +24,9 @@ namespace Business.Concrete
 
         public IResult Add(Product product)
         {
-            if (DateTime.Now.Hour==22)
+            if (product.ProductName.Length<2)
             {
-                return new ErrorDataResult<List<Product>>(Messages.MaintenanceTime);
+                return new ErrorResult(Messages.ProductNameInvalid);
             }
             _productDal.Add(product);
             return new SuccessDataResult<List<Product>>(Messages.ProductAdded);
@@ -32,7 +34,11 @@ namespace Business.Concrete
 
         public IDataResult<List<Product>> GetAll()
         {
-            //İş Kodları
+
+            if (DateTime.Now.Hour == 23)
+            {
+                return new ErrorDataResult<List<Product>>(Messages.MaintenanceTime);
+            }
             return new SuccessDataResult<List<Product>>(_productDal.GetAll(),Messages.ProductsListed);
         }
 
