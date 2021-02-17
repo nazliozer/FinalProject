@@ -31,8 +31,8 @@ namespace WebAPI
         {
             //Autofac, Ninject, CastleWinsor
             services.AddControllers();
-            services.AddSingleton<IProductService,ProductManager>();
-            services.AddSingleton<IProductDal, EFProductDal>();
+            //services.AddSingleton<IProductService,ProductManager>();
+            //services.AddSingleton<IProductDal, EFProductDal>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
